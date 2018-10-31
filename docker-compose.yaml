@@ -1,0 +1,76 @@
+---
+version: "3"
+
+services:
+  scheduler:
+    image: ecmwf/dask-distributed-test
+    expose:
+      - "8786"  # Scheduler port
+      - "8787"  # Bokeh port
+    ports:
+      - "8786:8786"
+      - "8787:8787"
+    tmpfs:
+      - /tmp
+    command: ["/usr/local/bin/run-scheduler"]
+    read_only: true
+
+  worker1:
+    image: ecmwf/dask-distributed-test
+    expose:
+      - "8788"  # Worker port.
+      - "8789"  # Bokeh port.
+      - "9000"  # Nanny port.
+    command: ["/usr/local/bin/run-worker", "worker1", "scheduler:8786"]
+    tmpfs:
+      - /tmp
+    volumes:
+      - /var/lib/dask
+    depends_on:
+      - scheduler
+    read_only: true
+
+  worker2:
+    image: ecmwf/dask-distributed-test
+    expose:
+      - "8788"
+      - "8789"
+      - "9000"
+    command: ["/usr/local/bin/run-worker", "worker2", "scheduler:8786"]
+    tmpfs:
+      - /tmp
+    volumes:
+      - /var/lib/dask
+    depends_on:
+      - scheduler
+    read_only: true
+
+  worker3:
+    image: ecmwf/dask-distributed-test
+    expose:
+      - "8788"
+      - "8789"
+      - "9000"
+    command: ["/usr/local/bin/run-worker", "worker3", "scheduler:8786"]
+    tmpfs:
+      - /tmp
+    volumes:
+      - /var/lib/dask
+    depends_on:
+      - scheduler
+    read_only: true
+
+  worker4:
+    image: ecmwf/dask-distributed-test
+    expose:
+      - "8788"
+      - "8789"
+      - "9000"
+    command: ["/usr/local/bin/run-worker", "worker4", "scheduler:8786"]
+    tmpfs:
+      - /tmp
+    volumes:
+      - /var/lib/dask
+    depends_on:
+      - scheduler
+    read_only: true

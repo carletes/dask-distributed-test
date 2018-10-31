@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+here="$(cd $(dirname $0) && pwd)"
+docker-compose \
+  --file ${here}/docker-compose.yaml \
+  --project-name dd \
+  "$@"

@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+set -e
+
+here="$(cd $(dirname $0) && pwd)"
+
+docker run \
+       -it \
+       --rm \
+       --volume ${here}:${here}:ro \
+       --read-only \
+       --network dd_default \
+       --user dask \
+       --workdir $here \
+       --read-only \
+       ecmwf/dask-distributed-test \
+       "$@"

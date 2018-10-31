@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+set -e
+
+local_dir="/var/lib/dask"
+chown dask: $local_dir
+
+name="$1"
+scheduler="$2"
+
+exec gosu dask dask-worker \
+	--name $name \
+	--worker-port 8788 \
+	--bokeh-port 8789 \
+	--nanny-port 9000 \
+	--local-directory $local_dir \
+	--nthreads 2 \
+	--nprocs 1 \
+	--memory-limit 1GB \
+	--reconnect \
+	$scheduler

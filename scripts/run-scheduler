@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -e
+
+exec gosu dask dask-scheduler \
+     --port 8786 \
+     --bokeh \
+     --bokeh-port 8787 \
+     "$@"
