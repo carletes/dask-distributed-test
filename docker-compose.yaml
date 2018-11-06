@@ -2,6 +2,19 @@
 version: "3"
 
 services:
+  nginx:
+    image: nginx:stable-alpine
+    expose:
+      - "80"
+    ports:
+      - "80:80"
+    volumes:
+      - ./scripts/nginx.conf:/etc/nginx/nginx.conf:ro
+      - /var/run
+    tmpfs:
+      - /var/cache/nginx
+    read_only: true
+
   scheduler:
     image: ecmwf/dask-distributed-test
     expose:
@@ -9,7 +22,6 @@ services:
       - "8787"  # Bokeh port
     ports:
       - "8786:8786"
-      - "8787:8787"
     tmpfs:
       - /tmp
     command: ["/usr/local/bin/run-scheduler"]

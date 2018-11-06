@@ -5,5 +5,6 @@ set -e
 exec gosu dask dask-scheduler \
      --port 8786 \
      --bokeh \
+     --bokeh-prefix dask \
      --bokeh-port 8787 \
      "$@"
