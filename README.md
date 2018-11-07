@@ -71,5 +71,4 @@ $ ./run-client python sample.py scheduler:8786
 total:  <Future: status: pending, key: sum-794beb922aa77a2f165cbf69307e290b>
 total (gathered):  500500
 $
-
 ```
